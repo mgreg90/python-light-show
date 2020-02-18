@@ -12,3 +12,6 @@ register_routes(application)
 
 config = Config()
 spotify_client = SpotifyClient(config)
+
+if __name__ == '__main__':
+  app.run()

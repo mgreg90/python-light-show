@@ -2,6 +2,10 @@ from app.lib.spotify_client import SpotifyClient
 import json
 import datetime
 import pdb
+import board
+import neopixel
+
+pixels = neopixel.NeoPixel(board.D18, 300)
 
 def create():
   song = SpotifyClient().fetch_current_song()
@@ -21,6 +25,8 @@ def create():
     next_beat_start = datetime.timedelta(seconds=beats[next_beat_index]['start'])
 
     if (song_progress_ms + offset > next_beat_start):
+      pixels.fill((30, 30, 30))
+      pixels.fill((0, 0, 0))
       print('flash lights!!!' + str(n))
       beats = beats[(next_beat_index + 1):]
       next_beat_index = _find_first_future_beat(beats, song_progress_ms + offset)
